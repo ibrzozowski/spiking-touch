@@ -1,1 +1,1 @@
-Izhikevich model feature
+Izhikevich model features
