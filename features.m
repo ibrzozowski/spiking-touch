@@ -3,9 +3,9 @@
 %   Which Model to Use For Cortical Spiking Neurons? 
 %   use MATLAB R13 or later. November 2003. San Diego, CA 
 
-function figure1mod
+function features
 skala=1000;
-%{
+
 %%%%%%%%%%%%%%% (A) tonic spiking %%%%%%%%%%%%%%%%%%%%%%
 a=0.02; b=0.2;  c=-65;  d=6;
 V=-70;  IIo=[];
@@ -279,7 +279,7 @@ IIm(3240:3248)=(i:-i/8:0);
 VVo=original(a,b,c,d,V,IIo,tau);
 VVm=modified(a,b,c,d,V,IIm,taum);
 drawing(VVo,IIo,tspan,VVm,IIm,tspanm,'(K) Resonator')
-%}
+
 %%%%%%%%%%%%%%%%%% (K-hf) resonator %%%%%%%%%%%%%%%%%%%%%%%%
 %%% high frequency
 a=0.1;  b=0.26; c=-60;  d=-1;
@@ -465,7 +465,7 @@ i=9;    % input current
 % T1=9.09/skala;
 ix=0;
 while ix < tmaxm
-    IIm(ix+90:ix+97)=(0:i/7:i);
+    IIm(ix+90:ix+98)=(0:i/8:i);
     IIm(ix+98:ix+109)=i;
     IIm(ix+110:ix+118)=(i:-i/8:0);
     ix=ix+100;
@@ -475,7 +475,7 @@ IIm=IIm(1:tmaxm);
 VVo=original_L(a,b,c,d,V,IIo,tau);
 VVm=modified_L(a,b,c,d,V,IIm,taum);
 drawing(VVo,IIo,tspan,VVm,IIm,tspanm,'(L-LF) Integrator (low frequency)')
-return
+
 %%%%%%%%%%%%%%%%% (M) rebound spike %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 a=0.03; b=0.25; c=-60;  d=4;
 V=-64;   IIo=[];
@@ -589,9 +589,9 @@ IIm=zeros(1,tmaxm);
 tspanm=tspanm/skala;
 i=20;    % input current
 % T1=10/skala;
-IIm(90:97)=(0:i/7:i);
-IIm(98:107)=i;
-IIm(108:116)=(i:-i/8:0);
+IIm(90:99)=(0:i/9:i);
+IIm(100:107)=i;
+IIm(108:117)=(i:-i/9:0);
 % -----
 VVo=original(a,b,c,d,V,IIo,tau);
 VVm=modified(a,b,c,d,V,IIm,taum);
@@ -624,7 +624,7 @@ IIm(2500:2508)=(i:-i/8:0)+80;
 VVo=original(a,b,c,d,V,IIo,tau);
 VVm=modified(a,b,c,d,V,IIm,taum);
 drawing(VVo,IIo,tspan,VVm,IIm,tspanm,'(S) Inhibition Induced Spiking')
-
+%{
 %%%%%%%%%%%%%% (T) inhibition induced bursting %%%%%%%%%%%%%%%%%%%%%%%%%%
 a=-0.026;  b=-1; c=-45;  d=-2;
 V=-63.8;  IIo=[];
@@ -652,7 +652,7 @@ IIm(2500:2508)=(i:-i/8:0)+80;
 VVo=original(a,b,c,d,V,IIo,tau);
 VVm=modified(a,b,c,d,V,IIm,taum);
 drawing(VVo,IIo,tspan,VVm,IIm,tspanm,'(T) Inhibition Induced Bursting')
-
+%}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%   SUBFUNCTIONS   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % original
@@ -755,7 +755,7 @@ ax3.XColor='r';
 ax4.Box = 'off';
 ax4.Color='none';
 ax4.YAxis.Visible='off';
-ax3.YLabel.String='Stimulus';
+ax3.YLabel.String='Stimulus [nA]';
 ax4.XLabel.String='Time [ms]';
 dy=0.1*max(abs(IIm));
 ax3.YLim=[min(IIm)-dy,max(IIm)+dy];
@@ -765,12 +765,12 @@ ax1.Position=ax1.Position+[0 -0.15 0 0.15];
 ax2.Position=ax2.Position+[0 -0.15 0 0.15];
 ax3.FontSize=10;
 ax4.FontSize=10;
-% save to files
+% save to file
 % pause
 f=gcf;
 f.PaperPosition=[0 0 13 11];
 f.PaperSize=[13,11.6];
-filename=['obrazki\fig_',desc(2:find(desc==')')-1)];
+filename=['Figures\fig_',desc(2:find(desc==')')-1)];
 saveas(f,[filename,'.pdf'])
 saveas(f,[filename,'.png'])
 savefig(filename)
